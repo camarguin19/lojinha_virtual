@@ -3,7 +3,7 @@ require_once '../config/auth.php';
 require_once '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'], ($_POST['acao']))) {
-    $id = intval($post['id']);
+    $id = intval($_POST['id']);
     $acao = $_POST['acao'];
 
     if (in_array($acao, ['admin', 'cliente'])) {

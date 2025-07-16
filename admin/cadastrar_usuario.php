@@ -28,7 +28,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param('sssss', $nome, $sobrenome, $email, $senhaCripto, $tipo);
 
             if ($stmt->execute()) {
-                $sucesso = "Usuário cadastrado com sucesso.";
+
+                $novo_id = $stmt->insert_id;
+
+                $_SESSION['usuario_logado'] = true;
+                $_SESSION['usuario'] = [
+                    'id' => $novo_id,
+                    'nome' => $nome,
+                    'sobrenome' => $sobrenome,
+                    'email' => $email,
+                    'tipo' => $tipo
+                ];
+
+                header("Location: ../cliente/index.php");
+                exit();
             } else {
                 $erro = "Erro ao cadastrar usuário.";
             }
