@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Entrar</button>
         <button type="button" onclick="window.location.href='cadastrar_usuario.php'">Cadastrar</button>
     </form>
+    <p><a href="../cliente/index.php"><button>🏠</button></a></p>
 </body>
 
 </html>

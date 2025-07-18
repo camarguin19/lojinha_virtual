@@ -1,6 +1,7 @@
 <?php
 
 require_once '../config/db.php';
+
 session_start();
 
 $sql = "SELECT p.*, c.nome AS categoria_nome
@@ -21,57 +22,59 @@ $result = $stmt->get_result();
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../public/assets/css/style.css">
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/loja_virtual/public/assets/css/style.css" />
     <title>Loja Virtual - Produtos</title>
 </head>
 
 <body>
-    <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+    <header class="topbar">
         <div>
             <?php if (!isset($_SESSION['usuario_logado'])): ?>
-                <a href="../admin/login.php"><button>Login</button></a>
+                <a href="../admin/login.php"><button class="btn">Login</button></a>
             <?php else: ?>
-                <a href="../admin/logout.php"><button>Sair</button></a>
+                <a href="../admin/logout.php"><button class="btn">Sair</button></a>
             <?php endif; ?>
         </div>
 
         <div>
-            <a href="ver_carrinho.php"><button>🛒 Ver Carrinho</button></a>
+            <a href="ver_carrinho.php"><button class="btn btn-cart">🛒 Ver Carrinho</button></a>
         </div>
-    </div>
+    </header>
 
+    <main>
+        <h1 class="page-title">Lista de Produtos</h1>
 
-    <h1>Lista de Produtos</h1>
-
-    <table border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Estoque</th>
-                <th>Categoria</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($produto = $result->fetch_assoc()): ?>
+        <table class="produtos-table">
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($produto['nome']) ?></td>
-                    <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
-                    <td><?= isset($produto['estoque']) ? $produto['estoque'] : 'Indefinido' ?></td>
-                    <td><?= $produto['categoria_nome'] ?? 'Não definida' ?></td>
-                    <td>
-                        <form method="POST" action="adicionar_carrinho.php">
-                            <input type="hidden" name="id" value="<?= $produto['id'] ?>">
-                            <input type="hidden" name="nome" value="<?= $produto['nome'] ?>">
-                            <input type="hidden" name="preco" value="<?= $produto['preco'] ?>">
-                            <button type="submit">🛒</button>
-                        </form>
-                    </td>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Categoria</th>
+                    <th>Ação</th>
                 </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php while ($produto = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($produto['nome']) ?></td>
+                        <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
+                        <td><?= isset($produto['estoque']) ? $produto['estoque'] : 'Indefinido' ?></td>
+                        <td><?= $produto['categoria_nome'] ?? 'Não definida' ?></td>
+                        <td>
+                            <form method="POST" action="adicionar_carrinho.php">
+                                <input type="hidden" name="id" value="<?= $produto['id'] ?>" />
+                                <input type="hidden" name="nome" value="<?= $produto['nome'] ?>" />
+                                <input type="hidden" name="preco" value="<?= $produto['preco'] ?>" />
+                                <button type="submit" class="btn btn-circle" title="Adicionar ao carrinho">🛒</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </main>
 </body>
 
 </html>

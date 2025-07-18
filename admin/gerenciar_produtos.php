@@ -58,8 +58,12 @@ $result = $stmt->get_result();
                     <td colspan="6">Nenhum produto cadastrado.</td>
                 </tr>
             <?php endif; ?>
+
         </tbody>
     </table>
+    <p><a href="principal_adm.php">← Voltar para o Painel</a></p>
+    <p><a href="../admin/logout.php"><button>Sair</button></a></p>
+
 </body>
 
 </html>

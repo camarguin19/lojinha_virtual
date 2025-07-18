@@ -58,3 +58,4 @@ if ($result) {
 </table>
 
 <p><a href="principal_adm.php">← Voltar para o Painel</a></p>
+<a href="../admin/logout.php"><button>Sair</button></a>
