@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['usuario_logado'])) {
+    header("Location: ../admin/login.php");
+    exit;
+}
+
 $id = $_POST['id'];
 $nome = $_POST['nome'];
 $preco = $_POST['preco'];

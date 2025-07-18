@@ -25,3 +25,7 @@ $total = 0;
     <?php endforeach; ?>
 </table>
 <p><strong>Total: R$ <?= number_format($total, 2, ',', '.') ?> </strong></p>
+<p>
+    <a href="esvaziar_carrinho.php"><button>Esvaziar Carrinho</button></a>
+    <a href="finalizar_compra.php"><button>Finalizar Compra</button></a>
+</p>
