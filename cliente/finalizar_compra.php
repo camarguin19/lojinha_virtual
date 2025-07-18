@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once '../config/db.php';
+
 
 if (!isset($_SESSION['usuario_logado'])) {
     header("Location: ../admin/login.php");
@@ -18,15 +20,19 @@ $erros = [];
 
 foreach ($carrinho as $id => $item) {
     $stmt = $conn->prepare("SELECT estoque FROM produtos WHERE id = ?");
-    $stmt->bind_param($id, "i");
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
-    $produtos = $resultado->fetch_assoc();
+    $produto = $resultado->fetch_assoc();
 
-    if (!$produtos) {
+    if (!$produto) {
         $erros[] = "Produto com ID $id não encontrado.";
-    } elseif ($produtos['estoque'] < $item['quantidade']) {
-        $erros[] = "Estoque insuficiente para o produto '{$item['nome']}' (ID: $id). Estoque atual: {$produtos['estoque']}.";
+    }
+    $quantidade_disponivel = $produto['estoque'];
+    $quantidade_comprada = $item['quantidade'];
+
+    if ($quantidade_comprada > $quantidade_disponivel) {
+        $erros[] = "Estoque insuficiente para o produto '{$item['nome']}' (ID: $id). Estoque atual: {$produto['estoque']}.";
     }
     $stmt->close();
 }
@@ -40,8 +46,10 @@ if (!empty($erros)) {
     exit;
 }
 foreach ($carrinho as $id => $item) {
-    $stmt = $conn->prepare("SELECT estoque FROM produtos WHERE id = ?");
-    $stmt->bind_param($id, "i");
+    $quantidade_comprada = $item['quantidade'];
+
+    $stmt = $conn->prepare("UPDATE produtos SET estoque = estoque - ? WHERE id = ?");
+    $stmt->bind_param("ii", $quantidade_comprada, $id);
     $stmt->execute();
     $stmt->close();
 }

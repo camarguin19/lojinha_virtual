@@ -10,10 +10,14 @@ $id = (int)$_GET['id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($_POST['nome']);
-    $preco = str_replace(',', '.', $_POST['preco']);
+    $preco = $_POST['preco'];
+    $preco = str_replace('.', '', $preco);
+    $preco = str_replace(',', '.', $preco);
+    $preco = floatval($preco);
+
     $estoque = (int)$_POST['estoque'];
     $categoria_id = (int)$_POST['categoria_id'];
-    if (empty($nome) || !is_numeric($preco) || $estoque < 0 || $categoria_id <= 0) {
+    if (empty($nome) || !isset($preco) || $estoque < 0 || $categoria_id <= 0) {
         die('Preencha os campos corretamente.');
     }
 

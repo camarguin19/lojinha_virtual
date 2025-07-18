@@ -58,7 +58,7 @@ $result = $stmt->get_result();
                 <tr>
                     <td><?= htmlspecialchars($produto['nome']) ?></td>
                     <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
-                    <td><?= $produto['estoque'] ?></td>
+                    <td><?= isset($produto['estoque']) ? $produto['estoque'] : 'Indefinido' ?></td>
                     <td><?= $produto['categoria_nome'] ?? 'Não definida' ?></td>
                     <td>
                         <form method="POST" action="adicionar_carrinho.php">
