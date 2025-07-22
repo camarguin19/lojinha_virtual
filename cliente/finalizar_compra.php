@@ -3,7 +3,7 @@ session_start();
 require_once '../config/db.php';
 
 
-if (!isset($_SESSION['usuario_logado'])) {
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['usuario']['id'])) {
     header("Location: ../admin/login.php");
     exit;
 }
@@ -50,6 +50,17 @@ foreach ($carrinho as $id => $item) {
 
     $stmt = $conn->prepare("UPDATE produtos SET estoque = estoque - ? WHERE id = ?");
     $stmt->bind_param("ii", $quantidade_comprada, $id);
+    $stmt->execute();
+    $stmt->close();
+}
+$usuario_id = $_SESSION['usuario']['id'];
+
+foreach ($_SESSION['carrinho'] as $produtos_id => $item) {
+    $quantidade = $item['quantidade'];
+    $preco_unitario = $item['preco'];
+
+    $stmt = $conn->prepare("INSERT INTO historico_compras (usuarios_id, produtos_id, quantidade, preco_unitario) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("iiid", $usuario_id, $produtos_id, $quantidade, $preco_unitario);
     $stmt->execute();
     $stmt->close();
 }

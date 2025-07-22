@@ -37,9 +37,15 @@ $result = $stmt->get_result();
             <?php endif; ?>
         </div>
 
-        <div>
-            <a href="ver_carrinho.php"><button class="btn btn-cart">🛒 Ver Carrinho</button></a>
+        <div class="menu-lateral">
+            <a href="ver_carrinho.php">
+                <button class="btn btn-cart">🛒 Ver Carrinho</button>
+            </a>
+            <a href="meus_pedidos.php">
+                <button class="btn btn-cart">Acessar o histórico de compras</button>
+            </a>
         </div>
+
     </header>
 
     <main>
@@ -68,6 +74,7 @@ $result = $stmt->get_result();
                                 <input type="hidden" name="nome" value="<?= $produto['nome'] ?>" />
                                 <input type="hidden" name="preco" value="<?= $produto['preco'] ?>" />
                                 <button type="submit" class="btn btn-circle" title="Adicionar ao carrinho">🛒</button>
+
                             </form>
                         </td>
                     </tr>
