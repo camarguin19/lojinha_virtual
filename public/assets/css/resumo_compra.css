@@ -1,0 +1,24 @@
+       table {
+           border-collapse: collapse;
+           width: 80%;
+       }
+
+       th,
+       td {
+           padding: 10px;
+           border: 1px solid #ccc;
+       }
+
+       .botoes {
+           margin-top: 20px;
+       }
+
+       .botoes a,
+       .botoes form {
+           display: inline-block;
+           margin-right: 10px;
+       }
+
+       button {
+           padding: 10px 20px;
+       }
