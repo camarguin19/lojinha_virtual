@@ -9,3 +9,4 @@ $adminEmail = $_SESSION['admin_usuario']['email'] ?? '';
 <button type="button" onclick="window.location.href='gerenciar_usuarios.php'">Gerenciar Usuarios</button>
 <button type="button" onclick="window.location.href='gerenciar_produtos.php'">Gerenciar Produtos</button>
 <a href="../admin/logout.php"><button>Sair</button></a>
+<a href="pedidos.php">📋 Ver Pedidos</a>
