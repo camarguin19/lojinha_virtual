@@ -27,5 +27,5 @@ $total = 0;
 <p><strong>Total: R$ <?= number_format($total, 2, ',', '.') ?> </strong></p>
 <p>
     <a href="esvaziar_carrinho.php"><button>Esvaziar Carrinho</button></a>
-    <a href="finalizar_compra.php"><button>Finalizar Compra</button></a>
+    <a href="resumo_compra.php"><button>Ver resumo da compra</button></a>
 </p>
