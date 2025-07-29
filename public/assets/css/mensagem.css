@@ -1,0 +1,19 @@
+.mensagem {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.mensagem.sucesso {
+    background-color: #4CAF50;
+}
+
+.mensagem.info {
+    background-color: #2196F3;
+}
+
+.mensagem.erro {
+    background-color: #f44336;
+}

@@ -3,6 +3,12 @@
 require_once '../config/db.php';
 
 session_start();
+if (isset($_SESSION['mensagem'])) {
+    $tipo = $_SESSION['mensagem']['tipo'];
+    $texto = $_SESSION['mensagem']['texto'];
+    echo "<div class='mensagem {$tipo}'>$texto</div>";
+    unset($_SESSION['mensagem']);
+}
 
 $sql = "SELECT p.*, c.nome AS categoria_nome
         FROM produtos p
@@ -24,6 +30,8 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/loja_virtual/public/assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/mensagens.css">
+
     <title>Loja Virtual - Produtos</title>
 </head>
 
